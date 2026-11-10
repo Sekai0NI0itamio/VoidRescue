@@ -102,10 +102,10 @@ jobs:
         run: gradle build --no-daemon --stacktrace
 
       - name: Stage mod for test client
-        working-directory: ${{ matrix.variant }}
+        # mc-runtime-test uses the repository root's run/ as the game dir.
         run: |
           mkdir -p run/mods
-          cp build/libs/voidrescue-*.jar run/mods/
+          cp "${{ matrix.variant }}"/build/libs/voidrescue-*.jar run/mods/
           rm -f run/mods/*-sources.jar
           ls -la run/mods/
 
@@ -127,7 +127,7 @@ jobs:
         with:
           name: rt-logs-${{ matrix.variant }}
           path: |
-            ${{ matrix.variant }}/run/logs/
-            ${{ matrix.variant }}/.minecraft/logs/
+            run/logs/
+            .minecraft/logs/
             **/latest.log
           if-no-files-found: warn
