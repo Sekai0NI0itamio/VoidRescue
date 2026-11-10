@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "voidrescue",
+  "version": "${version}",
+  "name": "Void Rescue",
+  "description": "Never die in the void: falling below the world teleports you back to your bed or spawn point.",
+  "authors": [
+    "Sekai0NI0itamio"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Sekai0NI0itamio/VoidRescue",
+    "sources": "https://github.com/Sekai0NI0itamio/VoidRescue",
+    "issues": "https://github.com/Sekai0NI0itamio/VoidRescue/issues"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "itamio.voidrescue.VoidRescueMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

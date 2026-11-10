@@ -1,0 +1,14 @@
+[{
+  "modid": "voidrescue",
+  "name": "Void Rescue",
+  "description": "Never die in the void: falling below the world teleports you back to your bed or spawn point.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/Sekai0NI0itamio/VoidRescue",
+  "updateUrl": "",
+  "authorList": ["Sekai0NI0itamio"],
+  "credits": "Original mod by Sekai0NI0itamio",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}]

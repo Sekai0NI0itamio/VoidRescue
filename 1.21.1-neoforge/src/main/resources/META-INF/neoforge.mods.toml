@@ -1,0 +1,24 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+
+[[mods]]
+modId="voidrescue"
+version="1.0.0"
+displayName="Void Rescue"
+authors="Sekai0NI0itamio"
+description="Never die in the void: falling below the world teleports you back to your bed or spawn point."
+
+[[dependencies.voidrescue]]
+    modId="neoforge"
+    mandatory=true
+    versionRange="[21.1.234,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.voidrescue]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.21.1]"
+    ordering="NONE"
+    side="BOTH"
