@@ -59,7 +59,7 @@ public class VoidRescueForgeMod {
                 overworld = level;
             }
             BlockPos spawn = overworld.getSharedSpawnPos();
-            player.teleportTo(spawn.getX() + 0.5D, spawn.getY() + 1.0D, spawn.getZ() + 0.5D,
+            player.teleportTo(overworld, spawn.getX() + 0.5D, spawn.getY() + 1.0D, spawn.getZ() + 0.5D,
                     player.getYRot(), player.getXRot());
         }
     }

@@ -56,7 +56,11 @@ public class VoidRescueNeoForgeMod {
         }
         var worldSpawn = server.overworld().getRespawnData();
         BlockPos spawn = worldSpawn.pos();
-        player.teleportTo(spawn.getX() + 0.5D, spawn.getY() + 1.0D, spawn.getZ() + 0.5D,
+        ServerLevel spawnLevel = server.getLevel(worldSpawn.dimension());
+        if (spawnLevel == null) {
+            spawnLevel = server.overworld();
+        }
+        player.teleportTo(spawnLevel, spawn.getX() + 0.5D, spawn.getY() + 1.0D, spawn.getZ() + 0.5D,
                 java.util.Set.of(), worldSpawn.yaw(), worldSpawn.pitch(), false);
     }
 }

@@ -34,7 +34,7 @@ public class VoidRescueMod {
             return;
         }
         for (EntityPlayerMP player : server.getPlayerList().getPlayers()) {
-            if (player.isCreativeMode() || player.isSpectator()) {
+            if (player.capabilities.isCreativeMode || player.isSpectator()) {
                 continue;
             }
             if (player.posY < 0.0D) {
