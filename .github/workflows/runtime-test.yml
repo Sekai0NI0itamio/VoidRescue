@@ -1,0 +1,133 @@
+name: Runtime test Void Rescue versions
+
+# Launches the real Minecraft client headlessly (HeadlessMC + Xvfb via
+# mc-runtime-test), which joins a single-player world and quits cleanly.
+# Surviving this proves the mod loads at the title screen AND in-game.
+
+on:
+  push:
+    paths:
+      - '.github/workflows/runtime-test.yml'
+      - '1.*/**'
+      - '26.3-*/**'
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  runtime-test:
+    name: rt-${{ matrix.variant }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - variant: 1.20.1-fabric
+            java: '21'
+            gradle: '9.5.0'
+            mc: '1.20.1'
+            modloader: fabric
+            mrt: fabric
+            fabric_api: 0.92.11
+          - variant: 1.21.1-fabric
+            java: '21'
+            gradle: '9.5.0'
+            mc: '1.21.1'
+            modloader: fabric
+            mrt: fabric
+            fabric_api: 0.107.0
+          - variant: 1.21.11-fabric
+            java: '21'
+            gradle: '9.5.0'
+            mc: '1.21.11'
+            modloader: fabric
+            mrt: fabric
+            fabric_api: 0.141.4
+          - variant: 26.3-fabric
+            java: '25'
+            gradle: '9.7.1'
+            mc: '26.3'
+            modloader: fabric
+            mrt: fabric
+            fabric_api: 0.163.0
+          - variant: 1.20.1-forge
+            java: '17'
+            gradle: '8.14.3'
+            mc: '1.20.1'
+            modloader: forge
+            mrt: forge
+            fabric_api: none
+          - variant: 1.21.1-neoforge
+            java: '21'
+            gradle: '8.14.3'
+            mc: '1.21.1'
+            modloader: neoforge
+            mrt: neoforge
+            fabric_api: none
+          - variant: 1.21.11-neoforge
+            java: '21'
+            gradle: '8.14.3'
+            mc: '1.21.11'
+            modloader: neoforge
+            mrt: neoforge
+            fabric_api: none
+          - variant: 26.3-neoforge
+            java: '25'
+            gradle: '9.2.1'
+            mc: '26.3'
+            modloader: neoforge
+            mrt: neoforge
+            fabric_api: none
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+
+      - name: Set up JDK ${{ matrix.java }}
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+
+      - name: Set up Gradle ${{ matrix.gradle }}
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: ${{ matrix.gradle }}
+
+      - name: Build mod
+        working-directory: ${{ matrix.variant }}
+        run: gradle build --no-daemon --stacktrace
+
+      - name: Stage mod for test client
+        working-directory: ${{ matrix.variant }}
+        run: |
+          mkdir -p run/mods
+          cp build/libs/voidrescue-*.jar run/mods/
+          rm -f run/mods/*-sources.jar
+          ls -la run/mods/
+
+      - name: Run Minecraft ${{ matrix.mc }} (${{ matrix.modloader }}) - title screen + in-game world load
+        uses: headlesshq/mc-runtime-test@5.0.0
+        with:
+          mc: ${{ matrix.mc }}
+          modloader: ${{ matrix.modloader }}
+          regex: .*${{ matrix.modloader }}.*
+          mc-runtime-test: ${{ matrix.mrt }}
+          java: ${{ matrix.java }}
+          xvfb: "true"
+          fabric-api: ${{ matrix.fabric_api }}
+          headlessmc-command: '--jvm "-DMcRuntimeGameTest=false"'
+
+      - name: Upload runtime logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rt-logs-${{ matrix.variant }}
+          path: |
+            ${{ matrix.variant }}/run/logs/
+            ${{ matrix.variant }}/.minecraft/logs/
+            **/latest.log
+          if-no-files-found: warn
