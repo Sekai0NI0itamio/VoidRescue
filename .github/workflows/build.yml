@@ -82,7 +82,10 @@ jobs:
         working-directory: ${{ matrix.variant }}
         run: |
           ls -la build/libs/
-          test -s build/libs/voidrescue-*.jar || (echo "FAIL: mod JAR not found" && exit 1)
+          if ! ls build/libs/voidrescue-*.jar >/dev/null 2>&1; then
+            echo "FAIL: mod JAR not found"
+            exit 1
+          fi
 
       - name: Upload JAR
         uses: actions/upload-artifact@v4
