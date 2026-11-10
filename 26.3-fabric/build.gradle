@@ -7,7 +7,7 @@ version = project.mod_version
 group = project.maven_group
 
 base {
-	archivesName = "voidrescue-26.3-fabric"
+	archivesName = "dontdieagaininvoid-26.3-fabric"
 }
 
 repositories {

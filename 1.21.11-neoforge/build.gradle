@@ -21,7 +21,7 @@ repositories {
 }
 
 base {
-    archivesName = "voidrescue-1.21.11-neoforge"
+    archivesName = "dontdieagaininvoid-1.21.11-neoforge"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

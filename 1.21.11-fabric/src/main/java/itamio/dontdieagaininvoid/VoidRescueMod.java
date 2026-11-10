@@ -1,4 +1,4 @@
-package itamio.voidrescue;
+package itamio.dontdieagaininvoid;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
@@ -10,7 +10,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
 /**
- * Void Rescue - never die in the void.
+ * Dont die again in void - never die in the void.
  *
  * <p>Every server tick, any survival player below the bottom of the world is
  * sent back to their respawn point (bed / respawn anchor) or, when they have
@@ -29,29 +29,31 @@ public class VoidRescueMod implements ModInitializer {
                 continue;
             }
             ServerLevel level = (ServerLevel) player.level();
-            if (player.getY() < level.getMinBuildHeight()) {
+            if (player.getY() < level.getMinY()) {
                 rescue(server, player, level);
             }
         }
     }
 
     private static void rescue(MinecraftServer server, ServerPlayer player, ServerLevel level) {
-        BlockPos respawnPos = player.getRespawnPosition();
-        ResourceKey<Level> respawnDim = player.getRespawnDimension();
+        var respawn = player.getRespawnConfig().respawnData();
+        BlockPos respawnPos = respawn.pos();
+        ResourceKey<Level> respawnDim = respawn.dimension();
         if (respawnPos != null && respawnDim != null) {
             ServerLevel target = server.getLevel(respawnDim);
             if (target != null) {
                 player.teleportTo(target, respawnPos.getX() + 0.5D, respawnPos.getY() + 1.0D,
-                        respawnPos.getZ() + 0.5D, player.getRespawnAngle(), player.getXRot());
+                        respawnPos.getZ() + 0.5D, java.util.Set.of(), respawn.yaw(), respawn.pitch(), false);
                 return;
             }
         }
-        ServerLevel overworld = server.getLevel(Level.OVERWORLD);
-        if (overworld == null) {
-            overworld = level;
+        var worldSpawn = server.overworld().getRespawnData();
+        BlockPos spawn = worldSpawn.pos();
+        ServerLevel spawnLevel = server.getLevel(worldSpawn.dimension());
+        if (spawnLevel == null) {
+            spawnLevel = server.overworld();
         }
-        BlockPos spawn = overworld.getSharedSpawnPos();
-        player.teleportTo(overworld, spawn.getX() + 0.5D, spawn.getY() + 1.0D, spawn.getZ() + 0.5D,
-                player.getYRot(), player.getXRot());
+        player.teleportTo(spawnLevel, spawn.getX() + 0.5D, spawn.getY() + 1.0D, spawn.getZ() + 0.5D,
+                java.util.Set.of(), worldSpawn.yaw(), worldSpawn.pitch(), false);
     }
 }

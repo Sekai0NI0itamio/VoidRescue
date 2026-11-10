@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "voidrescue",
+  "id": "dontdieagaininvoid",
   "version": "${version}",
-  "name": "Void Rescue",
+  "name": "Dont die again in void",
   "description": "Never die in the void: falling below the world teleports you back to your bed or spawn point.",
   "authors": [
     "Sekai0NI0itamio"
@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "itamio.voidrescue.VoidRescueMod"
+      "itamio.dontdieagaininvoid.VoidRescueMod"
     ]
   },
   "depends": {

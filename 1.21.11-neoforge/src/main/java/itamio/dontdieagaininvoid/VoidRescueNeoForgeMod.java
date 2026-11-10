@@ -1,4 +1,4 @@
-package itamio.voidrescue;
+package itamio.dontdieagaininvoid;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -14,12 +14,12 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
- * Void Rescue - never die in the void.
+ * Dont die again in void - never die in the void.
  */
 @Mod(VoidRescueNeoForgeMod.MOD_ID)
 public class VoidRescueNeoForgeMod {
 
-    public static final String MOD_ID = "voidrescue";
+    public static final String MOD_ID = "dontdieagaininvoid";
 
     public VoidRescueNeoForgeMod(IEventBus modEventBus, ModContainer modContainer) {
         NeoForge.EVENT_BUS.register(this);

@@ -1,6 +1,6 @@
 [{
-  "modid": "voidrescue",
-  "name": "Void Rescue",
+  "modid": "dontdieagaininvoid",
+  "name": "Dont die again in void",
   "description": "Never die in the void: falling below the world teleports you back to your bed or spawn point.",
   "version": "${version}",
   "mcversion": "${mcversion}",

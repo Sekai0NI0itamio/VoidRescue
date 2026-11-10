@@ -1,4 +1,4 @@
-package itamio.voidrescue;
+package itamio.dontdieagaininvoid;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -11,12 +11,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 /**
- * Void Rescue - never die in the void.
+ * Dont die again in void - never die in the void.
  */
 @Mod(VoidRescueForgeMod.MOD_ID)
 public class VoidRescueForgeMod {
 
-    public static final String MOD_ID = "voidrescue";
+    public static final String MOD_ID = "dontdieagaininvoid";
 
     @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public static final class Events {

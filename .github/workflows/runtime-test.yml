@@ -105,7 +105,7 @@ jobs:
         # mc-runtime-test uses the repository root's run/ as the game dir.
         run: |
           mkdir -p run/mods
-          cp "${{ matrix.variant }}"/build/libs/voidrescue-*.jar run/mods/
+          cp "${{ matrix.variant }}"/build/libs/dontdieagaininvoid-*.jar run/mods/
           rm -f run/mods/*-sources.jar
           ls -la run/mods/
 

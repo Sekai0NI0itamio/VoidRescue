@@ -9,7 +9,7 @@ version = mod_version
 group = mod_group_id
 
 base {
-    archivesName = "voidrescue-1.20.1-forge"
+    archivesName = "dontdieagaininvoid-1.20.1-forge"
 }
 
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.

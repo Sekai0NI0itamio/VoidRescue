@@ -1,4 +1,4 @@
-name: Build Void Rescue versions
+name: Build Dont die again in void versions
 
 on:
   push:
@@ -24,39 +24,39 @@ jobs:
           - variant: 1.12.2-forge
             java: '8'
             gradle: '4.9'
-            artifact: voidrescue-1.12.2-forge
+            artifact: dontdieagaininvoid-1.12.2-forge
           - variant: 1.20.1-fabric
             java: '21'
             gradle: '9.5.0'
-            artifact: voidrescue-1.20.1-fabric
+            artifact: dontdieagaininvoid-1.20.1-fabric
           - variant: 1.20.1-forge
             java: '17'
             gradle: '8.14.3'
-            artifact: voidrescue-1.20.1-forge
+            artifact: dontdieagaininvoid-1.20.1-forge
           - variant: 1.21.1-fabric
             java: '21'
             gradle: '9.5.0'
-            artifact: voidrescue-1.21.1-fabric
+            artifact: dontdieagaininvoid-1.21.1-fabric
           - variant: 1.21.1-neoforge
             java: '21'
             gradle: '8.14.3'
-            artifact: voidrescue-1.21.1-neoforge
+            artifact: dontdieagaininvoid-1.21.1-neoforge
           - variant: 1.21.11-fabric
             java: '21'
             gradle: '9.5.0'
-            artifact: voidrescue-1.21.11-fabric
+            artifact: dontdieagaininvoid-1.21.11-fabric
           - variant: 1.21.11-neoforge
             java: '21'
             gradle: '8.14.3'
-            artifact: voidrescue-1.21.11-neoforge
+            artifact: dontdieagaininvoid-1.21.11-neoforge
           - variant: 26.3-fabric
             java: '25'
             gradle: '9.7.1'
-            artifact: voidrescue-26.3-fabric
+            artifact: dontdieagaininvoid-26.3-fabric
           - variant: 26.3-neoforge
             java: '25'
             gradle: '9.2.1'
-            artifact: voidrescue-26.3-neoforge
+            artifact: dontdieagaininvoid-26.3-neoforge
 
     steps:
       - name: Check out repository
@@ -82,7 +82,7 @@ jobs:
         working-directory: ${{ matrix.variant }}
         run: |
           ls -la build/libs/
-          if ! ls build/libs/voidrescue-*.jar >/dev/null 2>&1; then
+          if ! ls build/libs/dontdieagaininvoid-*.jar >/dev/null 2>&1; then
             echo "FAIL: mod JAR not found"
             exit 1
           fi

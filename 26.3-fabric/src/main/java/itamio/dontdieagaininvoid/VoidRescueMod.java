@@ -1,36 +1,29 @@
-package itamio.voidrescue;
+package itamio.dontdieagaininvoid;
 
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 /**
- * Void Rescue - never die in the void.
+ * Dont die again in void - never die in the void.
+ *
+ * <p>Every server tick, any survival player below the bottom of the world is
+ * sent back to their respawn point (bed / respawn anchor) or, when they have
+ * none, to the world spawn. Creative and spectator players are ignored.</p>
  */
-@Mod(VoidRescueNeoForgeMod.MOD_ID)
-public class VoidRescueNeoForgeMod {
+public class VoidRescueMod implements ModInitializer {
 
-    public static final String MOD_ID = "voidrescue";
-
-    public VoidRescueNeoForgeMod(IEventBus modEventBus, ModContainer modContainer) {
-        NeoForge.EVENT_BUS.register(this);
+    @Override
+    public void onInitialize() {
+        ServerTickEvents.END_SERVER_TICK.register(VoidRescueMod::onServerTick);
     }
 
-    @SubscribeEvent
-    public void onServerTick(ServerTickEvent.Post event) {
-        MinecraftServer server = event.getServer();
-        if (server == null) {
-            return;
-        }
+    private static void onServerTick(MinecraftServer server) {
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             if (player.isCreative() || player.isSpectator()) {
                 continue;
@@ -42,7 +35,7 @@ public class VoidRescueNeoForgeMod {
         }
     }
 
-    private void rescue(MinecraftServer server, ServerPlayer player, ServerLevel level) {
+    private static void rescue(MinecraftServer server, ServerPlayer player, ServerLevel level) {
         var respawn = player.getRespawnConfig().respawnData();
         BlockPos respawnPos = respawn.pos();
         ResourceKey<Level> respawnDim = respawn.dimension();

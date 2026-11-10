@@ -1,8 +1,8 @@
-# Void Rescue
+# Dont die again in void
 
 **Never die in the void.**
 
-The instant a player falls below the bottom of the world, Void Rescue
+The instant a player falls below the bottom of the world, Dont die again in void
 teleports them back to safety:
 
 1. their **respawn point** — bed or respawn anchor, in its own dimension, or

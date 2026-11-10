@@ -13,10 +13,10 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 
 version = "1.0.0"
 group = mod_group_id
-archivesBaseName = "voidrescue-1.12.2-forge"
+archivesBaseName = "dontdieagaininvoid-1.12.2-forge"
 
-ext.mod_id = "voidrescue"
-ext.mod_name = "Void Rescue"
+ext.mod_id = "dontdieagaininvoid"
+ext.mod_name = "Dont die again in void"
 ext.mod_description = "Never die in the void: falling below the world teleports you back to your bed or spawn point."
 ext.mod_license = "MIT"
 
